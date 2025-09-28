@@ -1,0 +1,68 @@
+SPN Model{
+
+	place P1;
+	place P2;
+	place P3;
+	place P4( tokens= 1 );
+	place P5( tokens= 1 );
+	place Wqueue( tokens= 1 );
+
+
+	timedTransition TE0(
+		inputs = [P3],
+		outputs = [Wqueue],
+		delay = 3.0
+	);
+
+	timedTransition TE2(
+		inputs = [P1],
+		outputs = [P4, P3],
+		delay = 4.0
+	);
+
+	timedTransition TE3(
+		inputs = [P2],
+		outputs = [P5, P3],
+		delay = 5.0
+	);
+
+	timedTransition T_Imediata(
+		inputs = [Wqueue, P4],
+		outputs = [P1],
+		delay = 0.001
+	);
+
+	timedTransition T_imediata2(
+		inputs = [Wqueue, P5],
+		outputs = [P2],
+		delay = 0.001
+	);
+
+	metric TP = stationaryAnalysis( method = "direct", expression = "((E{#P1})*(1/4))+((E{#P2})*(1/5))" );
+	metric RT_SYS = stationaryAnalysis( method = "direct", expression = "((E{#Wqueue})+(E{#P1})+(E{#P2}))/(0.13259360877950513)" );
+	metric TP_TE2 = stationaryAnalysis( method = "direct", expression = "((E{#P1})*(0))+((E{#P2})*(1/5))" );
+	metric TP_TE3 = stationaryAnalysis( method = "direct", expression = "((E{#P1})*(1/4))+((E{#P2})*(0))" );
+	metric RT_P2 = stationaryAnalysis( method = "direct", expression = "((E{#Wqueue})+(E{#P1})+(E{#P2}))/(0.06666222291599011)" );
+	metric RT_P1 = stationaryAnalysis( method = "direct", expression = "((E{#Wqueue})+(E{#P1})+(E{#P2}))/(0.06666222410800351)" );
+}
+
+main {
+	TP = solve( Model,TP );
+	println(TP);
+
+	RT_SYS = solve( Model,RT_SYS );
+	println(RT_SYS);
+
+	TP_TE2 = solve( Model,TP_TE2 );
+	println(TP_TE2);
+
+	TP_TE3 = solve( Model,TP_TE3 );
+	println(TP_TE3);
+
+	RT_P2 = solve( Model,RT_P2 );
+	println(RT_P2);
+
+	RT_P1 = solve( Model,RT_P1 );
+	println(RT_P1);
+
+}
