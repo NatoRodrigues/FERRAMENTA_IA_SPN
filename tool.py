@@ -39,8 +39,8 @@ def gerar_script_com_ia(descricao_usuario):
     Sua principal tarefa é gerar scripts Mercury completos e sintaticamente corretos (SPN, RBD, CTMC) a partir de descrições em linguagem natural. A partir dos modelos da biblioteca, você deve criar novos modelos com base nas palavras-chaves detectadas, contanto que os novos códigos respeitem estritamente a sintaxe do Mercury Tool.
     SÓ ADICIONE COMENTÁRIOS COM // OU COM FUNÇÃO PRINTIN()
     a formula de TP é: TP = #E * 1/DELAY DA ULTIMA TRANSIÇAO NO CASO DE UM SISTEMA EM SERIE DE UMA UNICA ROTA.. caso tenha mais de uma rota, a regra da formula é a seguinte:
-
-
+    NÃO CONCATENE VARIAVEL COM STRING.
+    SÓ ADICIONE COMENTÁRIOS COM // em cada linha OU COM FUNÇÃO PRINTIN()
     ### REGRAS ESTRITAS DE SINTAXE OBRIGATÓRIAS
     1. **Transições**: Uma transição com qualquer valor no campo `delay` DEVE ser uma `timedTransition`. Use `immediateTransition` SOMENTE se não houver o campo `delay`.
     2. **Taxa de Serviço (µ)**: Ao construir uma expressão de `Throughput` (TP), a taxa de serviço (µ) é o inverso do delay (`µ = 1/delay`). Por exemplo, para `timedTransition T1(delay=25.0)`, a taxa na fórmula do TP seria `(1/25.0)`.
@@ -50,9 +50,10 @@ def gerar_script_com_ia(descricao_usuario):
     4. **Cenários de Otimização**: Se o usuário pedir para "zerar o delay" de um componente, encontre a `timedTransition` correspondente no modelo e altere seu valor de `delay` para `0.0`. Recalcule a fórmula do TP de acordo com a nova taxa de serviço (que agora é infinita ou não contribui para a fórmula original).
     5. **Métricas de Desempenho (RT)**: A métrica de Tempo de Resposta (RT) depende do valor numérico do Throughput (TP). Se o usuário pedir o RT mas NÃO fornecer um valor numérico para o TP, gere o script com um placeholder, da seguinte forma: `metric RT_SYS = stationaryAnalysis(method="direct", expression="((...))/(VALOR_NUMERICO_DO_TP)");`
     OBS:Mesmo com o delay zerado(delay nunca deve ser ZERADO de fato, apenas um valor aproximado de zero tipo 0.0001), a formula deve ser aplicada, pois será somado também a probabilidade de tokens em cada fila.
-    6. **Texto**: O script final deve conter APENAS o código, mas também pode conter string de texto com a função println()
+    6. **Texto**: O script final deve conter APENAS o código, mas também pode conter string de texto com a função println().     NÃO USE FUNÇÕES QUE NÃO EXISTEM NO MERCURY. SEJA EXTREMAMENTE ORTODOXO.
+    NÃO CONCATENE VARIAVEL COM STRING.
     ### BIBLIOTECA DE MODELOS PADRÃO
-    SÓ ADICIONE COMENTÁRIOS COM // OU COM FUNÇÃO PRINTIN()
+    SÓ ADICIONE COMENTÁRIOS COM // em cada linha OU COM FUNÇÃO PRINTIN()
 
     #### Exemplo 1: SPN para Análise de Desempenho IoMT (Modelo de Pesquisa Principal)
     - Descrição: Um modelo SPN de sistema fechado para calcular Throughput (TP) e Tempo de Resposta (RT_SYS). A fórmula do TP é a soma das taxas de serviço (inverso dos delays) das transições de processamento (TE2 e TE3), ponderada pelo número médio de trabalhos em cada estágio (P1 e P2).
@@ -106,7 +107,7 @@ def gerar_script_com_ia(descricao_usuario):
 
     ### SUA TAREFA
     Com base na extensa biblioteca e nas REGRAS ESTRITAS acima, analise a requisição do usuário a seguir e gere um script Mercury completo e funcional.
-
+    NÃO CONCATENE VARIAVEL COM STRING.
     #### REQUISIÇÃO DO USUÁRIO:
     "{descricao_usuario}"
 
