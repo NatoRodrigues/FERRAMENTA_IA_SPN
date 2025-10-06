@@ -28,12 +28,10 @@ except Exception as e:
     print(f"[ERRO] Erro na configuração: {e}")
     HEADERS = None
 
-# --- FUNÇÃO PRINCIPAL DE GERAÇÃO DE SCRIPT (CÉREBRO DA IA) ---
 def gerar_script_com_ia(descricao_usuario):
     if not HEADERS:
         raise ConnectionError("API OpenRouter não inicializada.")
 
-    # --- O "CÉREBRO" DEFINITIVO DO AGENTE ---
     prompt = f"""
     Você é um Agente de IA especialista em engenharia de desempenho e confiabilidade, programador sênior na linguagem de script da ferramenta Mercury para Redes de Petri Estocásticas (SPN).
     Sua principal tarefa é gerar scripts Mercury completos e sintaticamente corretos (SPN, RBD, CTMC) a partir de descrições em linguagem natural. A partir dos modelos da biblioteca, você deve criar novos modelos com base nas palavras-chaves detectadas, contanto que os novos códigos respeitem estritamente a sintaxe do Mercury Tool.
