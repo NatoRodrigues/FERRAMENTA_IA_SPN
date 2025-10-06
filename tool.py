@@ -8,7 +8,7 @@ import threading
 # --- CONFIGURAÇÃO DA API OPENROUTER ---
 try:
     # !!! IMPORTANTE: COLOQUE SUA CHAVE DE API DO OPENROUTER AQUI !!!
-    OPENROUTER_API_KEY = "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"
+    OPENROUTER_API_KEY = ""
     
     if not OPENROUTER_API_KEY or "SUA_CHAVE" in OPENROUTER_API_KEY:
         raise ValueError("Chave de API do OpenRouter não foi inserida. Por favor, edite o script.")
